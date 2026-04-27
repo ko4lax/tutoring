@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penawaran Harga - Bimbel Jadi Cerdas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 40px 20px; }
+        .container { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #7a6ad8, #5a4ab8); color: #fff; padding: 30px; text-align: center; }
+        .header h1 { font-size: 24px; margin-bottom: 5px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .budget { background: #e8f5e9; color: #2e7d32; padding: 15px; text-align: center; font-weight: bold; font-size: 18px; }
+        .content { padding: 30px; }
+        .section-title { color: #333; font-size: 16px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #7a6ad8; }
+        .feature-list { list-style: none; }
+        .feature-list li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: flex-start; }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list .no { background: #7a6ad8; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; margin-right: 12px; flex-shrink: 0; }
+        .feature-list .name { font-weight: 600; color: #333; }
+        .feature-list .desc { color: #666; font-size: 14px; margin-top: 3px; }
+        .extras { background: #f8f6ff; border-radius: 8px; padding: 20px; margin-top: 25px; }
+        .extras h3 { color: #5a4ab8; font-size: 14px; margin-bottom: 10px; }
+        .extras ul { list-style: none; color: #555; font-size: 14px; }
+        .extras ul li { padding: 5px 0; }
+        .extras ul li::before { content: "✓ "; color: #4caf50; }
+        .total { background: #7a6ad8; color: #fff; padding: 20px; text-align: center; margin-top: 25px; border-radius: 8px; }
+        .total-label { font-size: 14px; opacity: 0.9; }
+        .total-price { font-size: 28px; font-weight: bold; }
+        .footer { background: #333; color: #fff; padding: 20px; text-align: center; font-size: 13px; }
+        .footer a { color: #7a6ad8; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Penawaran Harga</h1>
+            <p>Bimbel Jadi Cerdas - Website & Sistem Admin</p>
+        </div>
+        <div class="budget">
+            Budget: Rp 600.000
+        </div>
+        <div class="content">
+            <h2 class="section-title">Fitur yang Termasuk</h2>
+            <ul class="feature-list">
+                <li>
+                    <span class="no">1</span>
+                    <div>
+                        <div class="name">Halaman Utama</div>
+                        <div class="desc">Landing page dengan showcase program, profil pengajar, testimonial, FAQ, kontak, dan Google Maps</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">2</span>
+                    <div>
+                        <div class="name">Katalog Program (`/daftar-kelas`)</div>
+                        <div class="desc">Halaman menampilkan semua program dengan filter berdasarkan mata pelajaran</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">3</span>
+                    <div>
+                        <div class="name">Form Pendaftaran</div>
+                        <div class="desc">Form multi-step (Program → Data → Jadwal → Konfirmasi) dengan validasi real-time</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">4</span>
+                    <div>
+                        <div class="name">Dashboard Admin</div>
+                        <div class="desc">Kelola pendaftar, pengajar, dan program dengan fitur sorting, pencarian, dan filter</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">5</span>
+                    <div>
+                        <div class="name">Sistem Login</div>
+                        <div class="desc">Login admin yang aman dengan proteksi route</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">6</span>
+                    <div>
+                        <div class="name">Upload Foto</div>
+                        <div class="desc">Upload foto pengajar dengan validasi</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">7</span>
+                    <div>
+                        <div class="name">Integrasi WhatsApp</div>
+                        <div class="desc">Tombol floating untuk chat langsung ke admin</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">8</span>
+                    <div>
+                        <div class="name">Toast Notification</div>
+                        <div class="desc">Popup sukses/error untuk setiap operasi</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="no">9</span>
+                    <div>
+                        <div class="name">Setup Database</div>
+                        <div class="desc">MySQL dengan 4 tabel dan relasi</div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="extras">
+                <h3>Fitur Tambahan (Tanpa Biaya Tambahan)</h3>
+                <ul>
+                    <li>Desain responsive (mobile-friendly)</li>
+                    <li>DataTable dengan sorting, pencarian, dan filter</li>
+                    <li>Proteksi route admin</li>
+                    <li>Validasi form real-time</li>
+                </ul>
+            </div>
+
+            <div class="total">
+                <div class="total-label">Total Penawaran</div>
+                <div class="total-price">Rp 600.000</div>
+            </div>
+        </div>
+        <div class="footer">
+            <p><strong>Bimbel Jadi Cerdas</strong></p>
+            <p>JL. RA Kartini 107, Pekalongan, Jawa Tengah</p>
+            <p>WhatsApp: <a href="https://wa.me/6285747323211">+62 857-4732-3211</a></p>
+        </div>
+    </div>
+</body>
+</html>

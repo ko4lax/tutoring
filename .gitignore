@@ -1,0 +1,10 @@
+/vendor/
+/writable/
+/.env
+/.env
+/composer.lock
+/node_modules/
+/nbproject/
+/.idea/
+.DS_Store
+*.log

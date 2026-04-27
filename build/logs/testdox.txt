@@ -1,0 +1,77 @@
+Admin Controller (Tests\App\Controllers\AdminController)
+ [x] Index page accessible
+ [x] Pengajar index page
+ [x] Pendaftar index page
+ [x] Program index page
+ [x] Simpan pengajar without photo
+ [x] Update pengajar
+ [x] Simpan program
+ [x] Update program
+ [x] Hapus pengajar
+ [x] Hapus program
+
+Example Session
+ [x] Session simple
+
+Health
+ [x] Is defined app path
+ [x] Base url has been set
+
+Home Controller (Tests\App\Controllers\HomeController)
+ [x] Index page loads
+ [x] Index page has programs
+ [x] Index page has teachers
+ [x] Register pendaftar success
+ [x] Register pendaftar stores correct data
+ [x] Register pendaftar password is hashed
+ [x] Landing page contact section
+ [x] Landing page about section
+ [x] Landing page footer
+
+Integration (Tests\Integration)
+ [x] Database connection
+ [x] All tables exist
+ [x] Foreign key constraint
+ [x] Program relations
+ [x] Data integrity
+ [x] File upload directory exists
+ [x] Encryption configuration
+ [x] Session configuration
+ [x] Base u r l configuration
+ [x] Email configuration
+
+Login Controller (Tests\App\Controllers\LoginController)
+ [x] Login page loads
+ [x] Login with valid credentials
+ [x] Login with invalid username
+ [x] Login with invalid password
+ [x] Login with empty fields
+ [x] Logout clears session
+ [x] Protected route redirects to login
+
+Pendaftar Model (Tests\App\Models\PendaftarModel)
+ [x] Insert pendaftar
+ [x] Get all pendaftar
+ [x] Get pendaftar with program
+ [x] Update pendaftar
+ [x] Delete pendaftar
+ [x] Pendaftar password is hashed
+ [x] Pendaftar has all required fields
+
+Pengajar Model (Tests\App\Models\PengajarModel)
+ [x] Insert pengajar
+ [x] Get all pengajar
+ [x] Get pengajar by id
+ [x] Update pengajar
+ [x] Delete pengajar
+ [x] Pengajar has required fields
+ [x] Insert pengajar without foto
+
+Program Model (Tests\App\Models\ProgramModel)
+ [x] Insert program
+ [x] Get all programs
+ [x] Update program
+ [x] Delete program
+ [x] Program has required fields
+ [x] Get program by nama
+

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rincian Biaya - Bimbel Jadi Cerdas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 40px 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #333; font-size: 24px; }
+        .header p { color: #666; margin-top: 5px; }
+        .card { background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 25px; overflow: hidden; }
+        .card-header { padding: 20px 25px; }
+        .card-header h2 { font-size: 18px; color: #fff; }
+        .card-header.green { background: linear-gradient(135deg, #43a047, #2e7d32); }
+        .card-header.purple { background: linear-gradient(135deg, #7a6ad8, #5a4ab8); }
+        .card-header.blue { background: linear-gradient(135deg, #1976d2, #1565c0); }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        .table th { background: #f8f9fa; font-weight: 600; color: #555; }
+        .table tr:last-child td { border-bottom: none; }
+        .table .num { color: #999; width: 30px; }
+        .table .hours { color: #888; font-size: 13px; }
+        .totals { padding: 20px 25px; background: #f8f9fa; border-top: 1px solid #eee; }
+        .totals-row { display: flex; justify-content: space-between; align-items: center; }
+        .totals-row .label { color: #666; font-size: 14px; }
+        .totals-row .value { font-weight: bold; font-size: 18px; color: #333; }
+        .highlight { background: linear-gradient(135deg, #fff8e1, #fff3cd); margin: 25px 0; border-radius: 12px; padding: 25px; text-align: center; border: 2px solid #ffc107; }
+        .highlight h3 { color: #856404; font-size: 16px; margin-bottom: 10px; }
+        .highlight .big { font-size: 32px; font-weight: bold; color: #856404; }
+        .highlight .note { font-size: 13px; color: #856404; margin-top: 8px; opacity: 0.8; }
+        .savings { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 12px; padding: 20px 25px; text-align: center; margin-bottom: 25px; }
+        .savings h3 { color: #2e7d32; font-size: 16px; margin-bottom: 8px; }
+        .savings .percent { font-size: 36px; font-weight: bold; color: #2e7d32; }
+        .savings .desc { color: #388e3c; font-size: 14px; margin-top: 5px; }
+        .footer { background: #333; color: #fff; padding: 20px; text-align: center; border-radius: 12px; font-size: 13px; }
+        .footer a { color: #7a6ad8; text-decoration: none; }
+        .note-section { background: #f8f9fa; border-radius: 8px; padding: 15px 20px; margin-top: 15px; font-size: 13px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Rincian Biaya Development</h1>
+            <p>Bimbel Jadi Cerdas - 21 Maret 2026</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header green">
+                <h2>Skenario 1: Development from Scratch</h2>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fitur</th>
+                        <th>Estimasi Waktu</th>
+                        <th>Estimasi Biaya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">1</td><td>Homepage + responsive design</td><td class="hours">8-10 jam</td><td>Rp 800.000 - 1.500.000</td></tr>
+                    <tr><td class="num">2</td><td>Katalog Program dengan filter</td><td class="hours">4-6 jam</td><td>Rp 400.000 - 900.000</td></tr>
+                    <tr><td class="num">3</td><td>Form pendaftaran multi-step</td><td class="hours">6-8 jam</td><td>Rp 600.000 - 1.200.000</td></tr>
+                    <tr><td class="num">4</td><td>Dashboard Admin (3 section)</td><td class="hours">12-16 jam</td><td>Rp 1.200.000 - 2.400.000</td></tr>
+                    <tr><td class="num">5</td><td>Sistem Login & proteksi</td><td class="hours">4-6 jam</td><td>Rp 400.000 - 900.000</td></tr>
+                    <tr><td class="num">6</td><td>Upload foto dengan validasi</td><td class="hours">3-4 jam</td><td>Rp 300.000 - 600.000</td></tr>
+                    <tr><td class="num">7</td><td>Integrasi WhatsApp + Toast</td><td class="hours">2-3 jam</td><td>Rp 200.000 - 450.000</td></tr>
+                    <tr><td class="num">8</td><td>Setup Database MySQL</td><td class="hours">2-3 jam</td><td>Rp 200.000 - 450.000</td></tr>
+                    <tr><td class="num">9</td><td>Testing & debugging</td><td class="hours">6-8 jam</td><td>Rp 600.000 - 1.200.000</td></tr>
+                </tbody>
+            </table>
+            <div class="totals">
+                <div class="totals-row">
+                    <span class="label">Total Estimasi</span>
+                    <span class="value">Rp 4.700.000 - 9.600.000</span>
+                </div>
+                <div class="totals-row" style="margin-top: 8px;">
+                    <span class="label">Estimasi Waktu</span>
+                    <span class="value" style="font-size: 14px;">47-64 jam</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header purple">
+                <h2>Skenario 2: Menggunakan Kode yang Sudah Ada</h2>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fitur</th>
+                        <th>Estimasi Waktu</th>
+                        <th>Estimasi Biaya</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="num">1</td><td>Setup project & hosting</td><td class="hours">2-3 jam</td><td>Rp 200.000 - 450.000</td></tr>
+                    <tr><td class="num">2</td><td>Konfigurasi database</td><td class="hours">1-2 jam</td><td>Rp 100.000 - 300.000</td></tr>
+                    <tr><td class="num">3</td><td>Customisasi sesuai kebutuhan</td><td class="hours">4-6 jam</td><td>Rp 400.000 - 900.000</td></tr>
+                    <tr><td class="num">4</td><td>Integrasi WhatsApp + Toast</td><td class="hours">1-2 jam</td><td>Rp 100.000 - 300.000</td></tr>
+                    <tr><td class="num">5</td><td>Testing & quality assurance</td><td class="hours">2-3 jam</td><td>Rp 200.000 - 450.000</td></tr>
+                </tbody>
+            </table>
+            <div class="totals">
+                <div class="totals-row">
+                    <span class="label">Total Estimasi</span>
+                    <span class="value">Rp 1.000.000 - 2.400.000</span>
+                </div>
+                <div class="totals-row" style="margin-top: 8px;">
+                    <span class="label">Estimasi Waktu</span>
+                    <span class="value" style="font-size: 14px;">10-16 jam</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <h3>Harga yang Ditawarkan</h3>
+            <div class="big">Rp 600.000</div>
+            <div class="note">Hemat hingga 90% dari harga pasar</div>
+        </div>
+
+        <div class="savings">
+            <h3>Penghematan</h3>
+            <div class="percent">~60-90%</div>
+            <div class="desc">Dibandingkan development from scratch (4.7-9.6jt)</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header blue">
+                <h2>Catatan</h2>
+            </div>
+            <div class="note-section" style="border: none; margin: 0;">
+                <p>• Estimasi berdasarkan rate freelance developer Indonesia: <strong>Rp 50.000 - 150.000/jam</strong></p>
+                <p style="margin-top: 8px;">• Estimasi <strong>belum termasuk</strong> biaya hosting & domain tahunan (~Rp 200.000 - 500.000/tahun)</p>
+                <p style="margin-top: 8px;">• Estimasi <strong>belum termasuk</strong> maintenance berkala</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Bimbel Jadi Cerdas</strong></p>
+            <p>JL. RA Kartini 107, Pekalongan, Jawa Tengah</p>
+            <p>WhatsApp: <a href="https://wa.me/6285747323211">+62 857-4732-3211</a></p>
+        </div>
+    </div>
+</body>
+</html>
