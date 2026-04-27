@@ -8,12 +8,12 @@
 
   <title>Dashboard Admin Bimbel Jadi Cerdas</title>
 
-  <!-- Fonts -->
-  <link href="<?= base_url('sb2/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-  <!-- SB Admin 2 -->
-  <link href="<?= base_url('sb2/css/sb-admin-2.min.css') ?>" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- SB Admin 2 CSS -->
+  <link rel="stylesheet" href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css">
 </head>
 
 <body id="page-top">
@@ -121,7 +121,7 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Jumlah Siswa
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pendaftar) ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
@@ -140,7 +140,7 @@
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Asisten Pengajar
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pengajar) ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
@@ -187,14 +187,16 @@
     </div>
   </div>
 
-  <!-- JS -->
-  <script src="<?= base_url('sb2/vendor/jquery/jquery.min.js') ?>"></script>
-  <script src="<?= base_url('sb2/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-  <script src="<?= base_url('sb2/vendor/jquery-easing/jquery.easing.min.js') ?>"></script>
-  <script src="<?= base_url('sb2/js/sb-admin-2.min.js') ?>"></script>
-
-  <!-- CHART JS -->
-  <script src="<?= base_url('sb2/vendor/chart.js/Chart.min.js') ?>"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery Easing -->
+  <script src="https://startbootstrap.github.io/startbootstrap-sb-admin-2/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- SB Admin 2 JS -->
+  <script src="https://startbootstrap.github.io/startbootstrap-sb-admin-2/js/sb-admin-2.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
   <script>
     var ctx = document.getElementById("grafikTahunan");

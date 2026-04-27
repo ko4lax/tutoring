@@ -10,12 +10,12 @@
 
     <title>Login - Bimbel Jadi Cerdas</title>
 
-    <!-- Custom fonts -->
-    <link href="<?= base_url('sb2/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom styles -->
-    <link href="<?= base_url('sb2/css/sb-admin-2.min.css') ?>" rel="stylesheet">
+    <!-- SB Admin 2 CSS -->
+    <link rel="stylesheet" href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css">
 
     <style>
         * {
@@ -458,7 +458,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="<?= base_url('sb2/vendor/jquery/jquery.min.js') ?>"></script>
+    <script src="<?= https://code.jquery.com/jquery-3.7.0.min.js ?>"></script>
     <script>
         // Toggle Password Visibility
         function togglePassword() {
