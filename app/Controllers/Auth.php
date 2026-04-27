@@ -6,6 +6,11 @@ use App\Models\AdminModel;
 
 class Auth extends BaseController
 {
+    public function login(): string
+    {
+        return view('auth/login');
+    }
+
     public function prosesLogin()
     {
         $session = session();

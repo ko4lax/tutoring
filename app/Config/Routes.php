@@ -5,29 +5,21 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+// Public pages
 $routes->get('/', 'Home::utama');
-$routes->get('/login', 'Sb2::login');
-$routes->get('/dashboard', 'Sb2::dashboard');
-$routes->get('/daftar-mengajar', 'Sb2::daftarMengajar');
-$routes->get('/tables', 'Sb2::daftarMengajar');
-$routes->get('/register', 'Sb2::register');
-$routes->post('/register', 'Auth::register');
-$routes->get('/forgot-password', 'Sb2::forgotPassword');
+$routes->get('/bimbel', 'Home::utama');
+$routes->get('/daftar', 'Home::daftar');
+$routes->get('/daftar-kelas', 'Home::daftarKelas');
+
+// Auth — login view rendered by Auth::login, form posts to Auth::prosesLogin
+$routes->get('/login', 'Auth::login');
 $routes->post('/login', 'Auth::prosesLogin');
 $routes->get('/logout', 'Auth::logout');
-$routes->get('/buttons', 'Sb2::buttons');
-$routes->get('/cards', 'Sb2::cards');
-$routes->get('/charts', 'Sb2::charts');
-$routes->get('/utilities-animation', 'Sb2::utilitiesAnimation');
-$routes->get('/utilities-border', 'Sb2::utilitiesBorder');
-$routes->get('/utilities-color', 'Sb2::utilitiesColor');
-$routes->get('/utilities-other', 'Sb2::utilitiesOther');
-$routes->get('/blank', 'Sb2::blank');
-$routes->get('/page-404', 'Sb2::page404');
 
-$routes->get('/bimbel', 'Home::utama');
-$routes->post('/pendaftaran/umum', 'Home::simpanPendaftarUmum');
-
+// Admin self-registration (protected by secret env var)
+$routes->get('/register', 'Auth::login'); // placeholder — actual register page not built yet
+$routes->post('/register', 'Auth::register');
 
 // Admin dashboard and actions
 $routes->get('/admin', 'Admin::index');
@@ -45,7 +37,8 @@ $routes->post('/admin/program/simpan', 'Admin::simpanProgram');
 $routes->post('/admin/program/update/(:num)', 'Admin::updateProgram/$1');
 $routes->get('/admin/program/hapus/(:num)', 'Admin::hapusProgram/$1');
 
-// Public registration form
-$routes->get('/daftar', 'Home::daftar');
-$routes->post('/daftar/simpan', 'Admin::simpanPendaftar'); // unprotected, outside admin/* filter
-$routes->get('/daftar-kelas', 'Home::daftarKelas');
+// Public registration — homepage wizard
+$routes->post('/pendaftaran/umum', 'Home::simpanPendaftarUmum');
+
+// Public standalone registration form
+$routes->post('/daftar/simpan', 'Admin::simpanPendaftar');
