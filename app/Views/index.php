@@ -1,654 +1,757 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>Bimbel Jadi Cerdas</title>
+  <title>Bimbel Jadi Cerdas</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?= base_url('vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="<?= base_url('vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/fontawesome.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/templatemo-scholar.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/owl.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/animate.css') ?>">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    
-    <!-- Custom CSS for Toast Notification -->
-    <style>
-      /* Toast Notification Styles */
-      .toast-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="<?= base_url('assets/css/fontawesome.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/templatemo-scholar.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/owl.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/css/animate.css') ?>">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+  <!-- Custom CSS for Toast Notification -->
+  <style>
+    /* Toast Notification Styles */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+
+    .toast {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 300px;
+      transform: translateX(400px);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-left: 4px solid #28a745;
+    }
+
+    .toast.error {
+      border-left: 4px solid #dc3545;
+    }
+
+    .toast-icon {
+      font-size: 20px;
+    }
+
+    .toast.success .toast-icon {
+      color: #28a745;
+    }
+
+    .toast.error .toast-icon {
+      color: #dc3545;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .toast-close:hover {
+      color: #333;
+    }
+
+    /* WhatsApp Button Styles */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .whatsapp-float a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: #25d366;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .whatsapp-float a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-float i {
+      font-size: 30px;
+      color: white;
+    }
+
+    /* Contact Info Styles */
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .contact-info-item:last-child {
+      border-bottom: none;
+    }
+
+    .contact-info-item i {
+      width: 40px;
+      height: 40px;
+      background: #7b6ada;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .contact-info-item a {
+      color: #7b6ada;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-info-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* Maps Container */
+    .maps-container {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .maps-container iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    /* Form Wizard Styles */
+    .form-wizard {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+    }
+
+    .wizard-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .wizard-steps::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 50px;
+      right: 50px;
+      height: 2px;
+      background: #e0e0e0;
+      z-index: 0;
+    }
+
+    .wizard-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .wizard-step.active .step-number {
+      background: #7b6ada;
+      color: white;
+    }
+
+    .wizard-step.completed .step-number {
+      background: #28a745;
+      color: white;
+    }
+
+    .step-label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .wizard-step.active .step-label {
+      color: #7b6ada;
+    }
+
+    .wizard-content {
+      display: none;
+    }
+
+    .wizard-content.active {
+      display: block;
+    }
+
+    .wizard-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .btn-wizard {
+      padding: 12px 30px;
+      border-radius: 25px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-wizard-prev {
+      background: #e0e0e0;
+      color: #666;
+    }
+
+    .btn-wizard-prev:hover {
+      background: #d0d0d0;
+    }
+
+    .btn-wizard-next {
+      background: #7b6ada;
+      color: white;
+    }
+
+    .btn-wizard-next:hover {
+      background: #6b5aca;
+    }
+
+    /* Program Card Styles */
+    .program-card {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+    }
+
+    .program-card:hover {
+      border-color: #7b6ada;
+      transform: translateY(-3px);
+    }
+
+    .program-card.selected {
+      border-color: #7b6ada;
+      background: #f8f7ff;
+    }
+
+    .program-card i {
+      font-size: 32px;
+      color: #7b6ada;
+      margin-bottom: 10px;
+    }
+
+    .program-card h5 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .program-card p {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+    }
+
+    /* Jadwal Selection Styles */
+    .jadwal-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .jadwal-section h5 {
+      color: #7b6ada;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .jadwal-section h5 i {
+      margin-right: 8px;
+    }
+
+    .form-select-lg {
+      padding: 12px 15px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+      width: 100%;
+      background-color: white;
+    }
+
+    .form-select-lg:focus {
+      border-color: #7b6ada;
+      box-shadow: 0 0 0 3px rgba(123, 106, 218, 0.1);
+      outline: none;
+    }
+
+    .form-select-lg.is-invalid {
+      border-color: #dc3545;
+    }
+
+    .form-select-lg.is-invalid:focus {
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+    }
+
+    .jadwal-preview {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid #7b6ada;
+    }
+
+    .jadwal-preview h6 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .jadwal-preview p {
+      color: #666;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* Confirmation Summary */
+    .confirmation-summary {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .summary-value {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    /* Tombol Daftar di Kelas */
+    .btn-daftar-kelas {
+      display: inline-block;
+      padding: 10px 25px;
+      background: #7b6ada;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-daftar-kelas:hover {
+      background: #6b5aca;
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Testimonials Image Fix - Uniform Size */
+    .testimonials .item .author {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .testimonials .item .author img {
+      width: 80px !important;
+      height: 80px !important;
+      min-width: 80px !important;
+      min-height: 80px !important;
+      max-width: 80px !important;
+      max-height: 80px !important;
+      border-radius: 50% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      float: none !important;
+      margin-right: 0 !important;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .testimonials .item .author .author-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testimonials .item .author .category {
+      margin-top: 0 !important;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .testimonials .item .author h4 {
+      margin-top: 5px !important;
+      font-size: 18px;
+    }
+
+    /* Responsive testimonials */
+    @media (max-width: 768px) {
+      .testimonials .item .author img {
+        width: 60px !important;
+        height: 60px !important;
+        min-width: 60px !important;
+        min-height: 60px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
       }
-      .toast {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        padding: 16px 20px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 300px;
-        transform: translateX(400px);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        opacity: 0;
-      }
-      .toast.show {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      .toast.success {
-        border-left: 4px solid #28a745;
-      }
-      .toast.error {
-        border-left: 4px solid #dc3545;
-      }
-      .toast-icon {
-        font-size: 20px;
-      }
-      .toast.success .toast-icon {
-        color: #28a745;
-      }
-      .toast.error .toast-icon {
-        color: #dc3545;
-      }
-      .toast-content {
-        flex: 1;
-      }
-      .toast-title {
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 2px;
-      }
-      .toast-message {
-        font-size: 13px;
-        color: #666;
-      }
-      .toast-close {
-        background: none;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-        color: #999;
-        padding: 0;
-        line-height: 1;
-      }
-      .toast-close:hover {
-        color: #333;
+    }
+
+    /* Modern Footer Styles */
+    .main-footer {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      padding: 70px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #7b6ada, #ff6b6b, #feca57, #7b6ada);
+      background-size: 300% 100%;
+      animation: gradientLine 3s ease infinite;
+    }
+
+    @keyframes gradientLine {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
       }
 
-      /* WhatsApp Button Styles */
-      .whatsapp-float {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 1000;
+      50% {
+        background-position: 100% 50%;
       }
-      .whatsapp-float a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 60px;
-        height: 60px;
-        background: #25d366;
-        border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Footer Brand */
+    .footer-brand h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff 0%, #7b6ada 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 25px;
+      max-width: 280px;
+    }
+
+    /* Social Links */
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      color: #fff;
+    }
+
+    .social-link.whatsapp:hover {
+      background: #25d366;
+      border-color: #25d366;
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    .social-link.instagram:hover {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      border-color: #e6683c;
+      box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
+    }
+
+    .social-link.facebook:hover {
+      background: #1877f2;
+      border-color: #1877f2;
+      box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
+    }
+
+    .social-link.youtube:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+    }
+
+    /* Footer Links */
+    .footer-links h5,
+    .footer-contact h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: #fff;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links h5::after,
+    .footer-contact h5::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: #7b6ada;
+      border-radius: 2px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links ul li a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links ul li a i {
+      font-size: 12px;
+      color: #7b6ada;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links ul li a:hover {
+      color: #fff;
+      padding-left: 5px;
+    }
+
+    .footer-links ul li a:hover i {
+      color: #fff;
+    }
+
+    /* Footer Contact */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .contact-item i {
+      width: 40px;
+      height: 40px;
+      background: rgba(123, 106, 218, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7b6ada;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-item div span {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .contact-item div p,
+    .contact-item div a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 5px 0 0;
+      line-height: 1.6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-item div a:hover {
+      color: #7b6ada;
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+      margin-top: 50px;
+      padding: 25px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .copyright {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    .made-with {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0;
+    }
+
+    .made-with i {
+      animation: heartbeat 1.5s ease infinite;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
       }
-      .whatsapp-float a:hover {
+
+      50% {
         transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
       }
-      .whatsapp-float i {
-        font-size: 30px;
-        color: white;
+    }
+
+    /* Responsive Footer */
+    @media (max-width: 768px) {
+      .main-footer {
+        padding: 50px 0 0;
       }
 
-      /* Contact Info Styles */
-      .contact-info-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 0;
-        border-bottom: 1px solid #eee;
+      .footer-brand {
+        text-align: center;
       }
-      .contact-info-item:last-child {
-        border-bottom: none;
+
+      .footer-tagline {
+        max-width: 100%;
       }
-      .contact-info-item i {
-        width: 40px;
-        height: 40px;
-        background: #7b6ada;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
+
+      .footer-social {
         justify-content: center;
-        font-size: 16px;
-      }
-      .contact-info-item a {
-        color: #7b6ada;
-        text-decoration: none;
-        font-weight: 500;
-      }
-      .contact-info-item a:hover {
-        text-decoration: underline;
       }
 
-      /* Maps Container */
-      .maps-container {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        margin-top: 20px;
-      }
-      .maps-container iframe {
-        width: 100%;
-        height: 300px;
-        border: none;
-      }
-
-      /* Form Wizard Styles */
-      .form-wizard {
-        background: #fff;
-        border-radius: 15px;
-        padding: 30px;
-      }
-      .wizard-steps {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 30px;
-        position: relative;
-      }
-      .wizard-steps::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        left: 50px;
-        right: 50px;
-        height: 2px;
-        background: #e0e0e0;
-        z-index: 0;
-      }
-      .wizard-step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        position: relative;
-        z-index: 1;
-      }
-      .step-number {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #e0e0e0;
-        color: #666;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
-      .wizard-step.active .step-number {
-        background: #7b6ada;
-        color: white;
-      }
-      .wizard-step.completed .step-number {
-        background: #28a745;
-        color: white;
-      }
-      .step-label {
-        font-size: 12px;
-        color: #666;
-        font-weight: 500;
-      }
-      .wizard-step.active .step-label {
-        color: #7b6ada;
-      }
-      .wizard-content {
-        display: none;
-      }
-      .wizard-content.active {
-        display: block;
-      }
-      .wizard-buttons {
-        display: flex;
-        justify-content: space-between;
+      .footer-bottom {
+        text-align: center;
         margin-top: 30px;
       }
-      .btn-wizard {
-        padding: 12px 30px;
-        border-radius: 25px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      .btn-wizard-prev {
-        background: #e0e0e0;
-        color: #666;
-      }
-      .btn-wizard-prev:hover {
-        background: #d0d0d0;
-      }
-      .btn-wizard-next {
-        background: #7b6ada;
-        color: white;
-      }
-      .btn-wizard-next:hover {
-        background: #6b5aca;
-      }
 
-      /* Program Card Styles */
-      .program-card {
-        border: 2px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-bottom: 15px;
-      }
-      .program-card:hover {
-        border-color: #7b6ada;
-        transform: translateY(-3px);
-      }
-      .program-card.selected {
-        border-color: #7b6ada;
-        background: #f8f7ff;
-      }
-      .program-card i {
-        font-size: 32px;
-        color: #7b6ada;
-        margin-bottom: 10px;
-      }
-      .program-card h5 {
-        font-size: 16px;
-        margin-bottom: 5px;
-      }
-      .program-card p {
-        font-size: 13px;
-        color: #666;
-        margin: 0;
-      }
-
-      /* Jadwal Selection Styles */
-      .jadwal-section {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 20px;
-      }
-      .jadwal-section h5 {
-        color: #7b6ada;
-        margin-bottom: 15px;
-        font-size: 16px;
-      }
-      .jadwal-section h5 i {
-        margin-right: 8px;
-      }
-      .form-select-lg {
-        padding: 12px 15px;
-        font-size: 14px;
-        border-radius: 8px;
-        border: 2px solid #e0e0e0;
-        width: 100%;
-        background-color: white;
-      }
-      .form-select-lg:focus {
-        border-color: #7b6ada;
-        box-shadow: 0 0 0 3px rgba(123, 106, 218, 0.1);
-        outline: none;
-      }
-      .form-select-lg.is-invalid {
-        border-color: #dc3545;
-      }
-      .form-select-lg.is-invalid:focus {
-        box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
-      }
-      .jadwal-preview {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        margin-top: 20px;
-        border-left: 4px solid #7b6ada;
-      }
-      .jadwal-preview h6 {
-        color: #333;
-        margin-bottom: 10px;
-      }
-      .jadwal-preview p {
-        color: #666;
-        margin: 0;
-        font-size: 14px;
-      }
-
-      /* Confirmation Summary */
-      .confirmation-summary {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-      }
-      .summary-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #e0e0e0;
-      }
-      .summary-item:last-child {
-        border-bottom: none;
-      }
-      .summary-label {
-        color: #666;
-        font-size: 14px;
-      }
-      .summary-value {
-        font-weight: 600;
-        color: #333;
-        font-size: 14px;
-      }
-
-      /* Tombol Daftar di Kelas */
-      .btn-daftar-kelas {
-        display: inline-block;
-        padding: 10px 25px;
-        background: #7b6ada;
-        color: white;
-        text-decoration: none;
-        border-radius: 25px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-      }
-      .btn-daftar-kelas:hover {
-        background: #6b5aca;
-        transform: translateY(-2px);
-        color: white;
-      }
-
-      /* Smooth Scroll */
-      html {
-        scroll-behavior: smooth;
-      }
-
-      /* Testimonials Image Fix - Uniform Size */
-      .testimonials .item .author {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      .testimonials .item .author img {
-        width: 80px !important;
-        height: 80px !important;
-        min-width: 80px !important;
-        min-height: 80px !important;
-        max-width: 80px !important;
-        max-height: 80px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        object-position: center !important;
-        float: none !important;
-        margin-right: 0 !important;
-        border: 3px solid rgba(255,255,255,0.3);
-      }
-      .testimonials .item .author .author-info {
-        display: flex;
-        flex-direction: column;
-      }
-      .testimonials .item .author .category {
-        margin-top: 0 !important;
-        font-size: 13px;
-        opacity: 0.9;
-      }
-      .testimonials .item .author h4 {
-        margin-top: 5px !important;
-        font-size: 18px;
-      }
-      /* Responsive testimonials */
-      @media (max-width: 768px) {
-        .testimonials .item .author img {
-          width: 60px !important;
-          height: 60px !important;
-          min-width: 60px !important;
-          min-height: 60px !important;
-          max-width: 60px !important;
-          max-height: 60px !important;
-        }
-      }
-
-      /* Modern Footer Styles */
-      .main-footer {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        color: #fff;
-        padding: 70px 0 0;
-        position: relative;
-        overflow: hidden;
-      }
-      .main-footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #7b6ada, #ff6b6b, #feca57, #7b6ada);
-        background-size: 300% 100%;
-        animation: gradientLine 3s ease infinite;
-      }
-      @keyframes gradientLine {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-      }
-      
-      /* Footer Brand */
-      .footer-brand h3 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 15px;
-        background: linear-gradient(135deg, #fff 0%, #7b6ada 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .footer-tagline {
-        font-size: 14px;
-        line-height: 1.8;
-        color: rgba(255,255,255,0.7);
-        margin-bottom: 25px;
-        max-width: 280px;
-      }
-      
-      /* Social Links */
-      .footer-social {
-        display: flex;
-        gap: 12px;
-      }
-      .social-link {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        background: rgba(255,255,255,0.1);
-        border: 1px solid rgba(255,255,255,0.2);
-      }
-      .social-link:hover {
-        transform: translateY(-3px);
-        color: #fff;
-      }
-      .social-link.whatsapp:hover {
-        background: #25d366;
-        border-color: #25d366;
-        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
-      }
-      .social-link.instagram:hover {
-        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        border-color: #e6683c;
-        box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4);
-      }
-      .social-link.facebook:hover {
-        background: #1877f2;
-        border-color: #1877f2;
-        box-shadow: 0 5px 15px rgba(24, 119, 242, 0.4);
-      }
-      .social-link.youtube:hover {
-        background: #ff0000;
-        border-color: #ff0000;
-        box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
-      }
-      
-      /* Footer Links */
-      .footer-links h5,
-      .footer-contact h5 {
-        font-size: 16px;
-        font-weight: 600;
-        margin-bottom: 25px;
-        color: #fff;
-        position: relative;
-        padding-bottom: 10px;
-      }
-      .footer-links h5::after,
-      .footer-contact h5::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 40px;
-        height: 3px;
-        background: #7b6ada;
-        border-radius: 2px;
-      }
-      .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      .footer-links ul li {
-        margin-bottom: 12px;
-      }
-      .footer-links ul li a {
-        color: rgba(255,255,255,0.7);
-        text-decoration: none;
-        font-size: 14px;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .footer-links ul li a i {
-        font-size: 12px;
-        color: #7b6ada;
-        transition: all 0.3s ease;
-      }
-      .footer-links ul li a:hover {
-        color: #fff;
-        padding-left: 5px;
-      }
-      .footer-links ul li a:hover i {
-        color: #fff;
-      }
-      
-      /* Footer Contact */
-      .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-      .contact-item i {
-        width: 40px;
-        height: 40px;
-        background: rgba(123, 106, 218, 0.2);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #7b6ada;
-        font-size: 16px;
-        flex-shrink: 0;
-      }
-      .contact-item div span {
-        font-size: 12px;
-        color: rgba(255,255,255,0.5);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .contact-item div p,
-      .contact-item div a {
-        font-size: 14px;
-        color: rgba(255,255,255,0.9);
-        margin: 5px 0 0;
-        line-height: 1.6;
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-      .contact-item div a:hover {
-        color: #7b6ada;
-      }
-      
-      /* Footer Bottom */
-      .footer-bottom {
-        margin-top: 50px;
-        padding: 25px 0;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-      .copyright {
-        font-size: 14px;
-        color: rgba(255,255,255,0.6);
-        margin: 0;
-      }
       .made-with {
-        font-size: 14px;
-        color: rgba(255,255,255,0.6);
-        margin: 0;
+        margin-top: 10px;
+        text-align: center !important;
       }
-      .made-with i {
-        animation: heartbeat 1.5s ease infinite;
-      }
-      @keyframes heartbeat {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-      }
-      
-      /* Responsive Footer */
-      @media (max-width: 768px) {
-        .main-footer {
-          padding: 50px 0 0;
-        }
-        .footer-brand {
-          text-align: center;
-        }
-        .footer-tagline {
-          max-width: 100%;
-        }
-        .footer-social {
-          justify-content: center;
-        }
-        .footer-bottom {
-          text-align: center;
-          margin-top: 30px;
-        }
-        .made-with {
-          margin-top: 10px;
-          text-align: center !important;
-        }
-      }
-    </style>
-  </head>
+    }
+  </style>
+</head>
 
 <body>
 
@@ -656,21 +759,21 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <?php if ($success = session()->getFlashdata('success')) : ?>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => showToast('<?= addslashes($success) ?>', 'success'));
-  </script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => showToast('<?= addslashes($success) ?>', 'success'));
+    </script>
   <?php endif; ?>
   <?php if ($error = session()->getFlashdata('error')) : ?>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => showToast('<?= addslashes($error) ?>', 'error'));
-  </script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => showToast('<?= addslashes($error) ?>', 'error'));
+    </script>
   <?php endif; ?>
 
   <!-- WhatsApp Float Button -->
   <div class="whatsapp-float">
-    <a href="https://wa.me/6285747323211?text=Halo%20Admin%20Bimbel%20Jadi%20Cerdas,%20saya%20ingin%20bertanya" 
-       target="_blank" 
-       title="Chat WhatsApp">
+    <a href="https://wa.me/6285747323211?text=Halo%20Admin%20Bimbel%20Jadi%20Cerdas,%20saya%20ingin%20bertanya"
+      target="_blank"
+      title="Chat WhatsApp">
       <i class="fab fa-whatsapp"></i>
     </a>
   </div>
@@ -691,38 +794,38 @@
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="<?= site_url('/') ?>" class="logo">
-                        <h1>Bimbel Jadi cerdas</h1>
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Serach Start ***** -->
-                    <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
-                      </form>
-                    </div>
-                    <!-- ***** Serach Start ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                      <li class="scroll-to-section"><a href="#services">Program Dan Kelas</a></li>
-                      <li class="scroll-to-section"><a href="#courses">Kegiatan</a></li>
-                      <li class="scroll-to-section"><a href="#team">Pengajar</a></li>
-                      <li class="scroll-to-section"><a href="#about-us-section">About Us</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Pendaftaran</a></li>
-                  </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="<?= site_url('/') ?>" class="logo">
+              <h1>Bimbel Jadi cerdas</h1>
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Serach Start ***** -->
+            <div class="search-input">
+              <form id="search" action="#">
+                <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
+                <i class="fa fa-search"></i>
+              </form>
             </div>
+            <!-- ***** Serach Start ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+              <li class="scroll-to-section"><a href="#services">Program Dan Kelas</a></li>
+              <li class="scroll-to-section"><a href="#courses">Kegiatan</a></li>
+              <li class="scroll-to-section"><a href="#team">Pengajar</a></li>
+              <li class="scroll-to-section"><a href="#about-us-section">About Us</a></li>
+              <li class="scroll-to-section"><a href="#contact">Pendaftaran</a></li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
         </div>
+      </div>
     </div>
   </header>
   <!-- ***** Header Area End ***** -->
@@ -889,16 +992,16 @@
                 <div class="accordion-body">
                   <p class="mb-3">Kami berlokasi di JL. RA Kartini 107, Pekalongan. Silakan klik peta di bawah untuk mendapatkan petunjuk arah:</p>
                   <div class="maps-container">
-                    <iframe 
+                    <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.0!2d109.675!3d-6.889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTMnMjAuNCJTIDEwMcKwNDAnMzAuMCJF!5e0!3m2!1sid!2sid!4v1234567890"
-                      allowfullscreen="" 
-                      loading="lazy" 
+                      allowfullscreen=""
+                      loading="lazy"
                       referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                   </div>
-                  <a href="https://maps.google.com/?q=JL+RA+Kartini+107+Pekalongan" 
-                     target="_blank" 
-                     class="btn btn-primary mt-3 w-100">
+                  <a href="https://maps.google.com/?q=JL+RA+Kartini+107+Pekalongan"
+                    target="_blank"
+                    class="btn btn-primary mt-3 w-100">
                     <i class="fa fa-directions mr-2"></i> Buka di Google Maps
                   </a>
                 </div>
@@ -925,10 +1028,10 @@
             <h6>About Us</h6>
             <h2>Bimbel Jadi Cerdas</h2>
             <p>Bimbel Jadi Cerdas adalah lembaga bimbingan belajar yang berkomitmen membantu siswa meningkatkan prestasi akademik melalui metode belajar yang efektif, interaktif, dan menyenangkan.
-Dengan tutor berpengalaman, materi terbaru, serta pendekatan pembelajaran yang mudah dipahami, Bimbel Jadi Cerdas hadir sebagai solusi terbaik untuk membantu siswa mencapai hasil belajar yang optimal.
+              Dengan tutor berpengalaman, materi terbaru, serta pendekatan pembelajaran yang mudah dipahami, Bimbel Jadi Cerdas hadir sebagai solusi terbaik untuk membantu siswa mencapai hasil belajar yang optimal.
 
-Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimbing, mengarahkan, dan mengembangkan kemampuan siswa agar menjadi pribadi yang percaya diri, berprestasi, dan tentu saja lebih cerdas setiap hari.</p>
-            
+              Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimbing, mengarahkan, dan mengembangkan kemampuan siswa agar menjadi pribadi yang percaya diri, berprestasi, dan tentu saja lebih cerdas setiap hari.</p>
+
             <!-- Contact Info Summary -->
             <div class="contact-info-summary mt-4">
               <div class="contact-info-item">
@@ -958,7 +1061,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
     </div>
   </div>
 
-  <section class="section courses" id="courses" >
+  <section class="section courses" id="courses">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -989,7 +1092,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/kelas-inggris.jpg') ?>" alt="Kelas bahasa Inggris"></a>
               <span class="category">Bahasa Inggris</span>
-              <span class="price"><h6>SD-SMA</h6></span>
+              <span class="price">
+                <h6>SD-SMA</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Grup & Privat</span>
@@ -1004,7 +1109,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/kelas-matematika.jpg') ?>" alt="Kelas matematika"></a>
               <span class="category">Matematika</span>
-              <span class="price"><h6>SD-SMA</h6></span>
+              <span class="price">
+                <h6>SD-SMA</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Grup & Privat</span>
@@ -1019,7 +1126,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/kelas-mandarin.jpg') ?>" alt="Kelas bahasa Mandarin"></a>
               <span class="category">Mandarin</span>
-              <span class="price"><h6>Semua Level</h6></span>
+              <span class="price">
+                <h6>Semua Level</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Native Speaker</span>
@@ -1034,7 +1143,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/kelas-bahasainggris.jpg') ?>" alt="Kelas conversation bahasa Inggris"></a>
               <span class="category">Bahasa Inggris</span>
-              <span class="price"><h6>Conversation</h6></span>
+              <span class="price">
+                <h6>Conversation</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Speaking Practice</span>
@@ -1049,7 +1160,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/mapel-01.jpg') ?>" alt="Kelas privat matematika"></a>
               <span class="category">Privat</span>
-              <span class="price"><h6>1-on-1</h6></span>
+              <span class="price">
+                <h6>1-on-1</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Fleksibel</span>
@@ -1064,7 +1177,9 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             <div class="thumb">
               <a href="#"><img src="<?= base_url('assets/images/mapel-02.jpg') ?>" alt="Ruang kelas modern"></a>
               <span class="category">Fasilitas</span>
-              <span class="price"><h6>Grup Kecil</h6></span>
+              <span class="price">
+                <h6>Grup Kecil</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Nyaman & Lengkap</span>
@@ -1086,7 +1201,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
               <div class="col-lg-3 col-md-6">
                 <div class="counter">
                   <h2 class="timer count-title count-number" data-to="150" data-speed="1000"></h2>
-                   <p class="count-text ">Happy Students</p>
+                  <p class="count-text ">Happy Students</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6">
@@ -1128,7 +1243,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                     <img src="<?= base_url('assets/images/member-default.jpg') ?>" alt="<?= esc($p['nama_pengajar']) ?>">
                   <?php endif; ?>
                   <span class="category"><?= esc($p['mata_pelajaran']) ?></span>
-                  <h4><?= esc($p['nama_pengajar']) ?></h4>     
+                  <h4><?= esc($p['nama_pengajar']) ?></h4>
                 </div>
               </div>
             </div>
@@ -1140,7 +1255,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
               <div class="main-content">
                 <img src="<?= base_url('assets/images/member-01.jpg') ?>" alt="">
                 <span class="category">Pengajar Matematika</span>
-                <h4>Miss Shintya</h4>     
+                <h4>Miss Shintya</h4>
               </div>
             </div>
           </div>
@@ -1174,7 +1289,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
         <?php endif; ?>
       </div>
     </div>
-  </div> 
+  </div>
 
   <div class="section testimonials">
     <div class="container">
@@ -1295,7 +1410,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
             </div>
           </div>
         </div>
-         <div class="col-lg-12 col-md-6">
+        <div class="col-lg-12 col-md-6">
           <div class="item">
             <div class="row">
               <div class="col-lg-3">
@@ -1371,7 +1486,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
           </div>
         </div>
       </div>
-      
+
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <div class="form-wizard">
@@ -1397,11 +1512,12 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
 
             <!-- Wizard Form -->
             <form id="registrationForm" action="<?= site_url('pendaftaran/umum') ?>" method="post">
+              <?= csrf_field() ?>
               <!-- Step 1: Program -->
               <div class="wizard-content active" id="step1">
                 <h4 class="mb-4">Pilih Program Bimbel</h4>
                 <p class="text-muted mb-4">Pilih kombinasi mata pelajaran dan tipe program yang Anda inginkan.</p>
-                
+
                 <div class="row">
                   <div class="col-md-6">
                     <div class="program-card" data-program="matematika-grup" onclick="selectProgram(this)">
@@ -1460,7 +1576,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                     </div>
                   </div>
                 </div>
-                
+
                 <input type="hidden" name="program" id="selectedProgram" required>
               </div>
 
@@ -1473,13 +1589,13 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                     <label class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                     <input type="text" name="nama_lengkap" class="form-control" placeholder="Masukkan nama lengkap" required>
                   </div>
-                  
+
                   <!-- Baris 2: Alamat (full width) -->
                   <div class="col-md-12 mb-3">
                     <label class="form-label">Alamat <span class="text-danger">*</span></label>
                     <textarea name="alamat_rumah" class="form-control" rows="2" placeholder="Masukkan alamat lengkap" required></textarea>
                   </div>
-                  
+
                   <!-- Baris 3: Tanggal Lahir & No WhatsApp -->
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
@@ -1489,7 +1605,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                     <label class="form-label">No WhatsApp <span class="text-danger">*</span></label>
                     <input type="text" name="no_wa" class="form-control" placeholder="08xxxxxxxxxx" required>
                   </div>
-                  
+
                   <!-- Baris 4: Asal Sekolah & Kelas -->
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Asal Sekolah <span class="text-danger">*</span></label>
@@ -1499,7 +1615,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                     <label class="form-label">Kelas <span class="text-danger">*</span></label>
                     <input type="text" name="kelas" class="form-control" placeholder="Contoh: 6A / X IPA" required>
                   </div>
-                  
+
                   <!-- Baris 5: Nama Orang Tua & No WA Orang Tua -->
                   <div class="col-md-6 mb-3">
                     <label class="form-label">Nama Orang Tua <span class="text-danger">*</span></label>
@@ -1516,7 +1632,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
               <div class="wizard-content" id="step3">
                 <h4 class="mb-4">Pilih Jadwal Belajar</h4>
                 <p class="text-muted mb-4">Pilih hari dan jam yang sesuai dengan ketersediaan waktu Anda.</p>
-                
+
                 <!-- Hari Pertemuan -->
                 <div class="jadwal-section">
                   <h5><i class="fa fa-calendar"></i> Hari Pertemuan</h5>
@@ -1570,15 +1686,16 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                   <h6><i class="fa fa-check-circle text-success"></i> Jadwal yang Anda Pilih:</h6>
                   <p id="jadwalText">-</p>
                 </div>
-                
+
                 <input type="hidden" name="jadwal" id="selectedJadwal" required>
+                <input type="hidden" name="hari" id="hariHidden">
               </div>
 
               <!-- Step 4: Konfirmasi -->
               <div class="wizard-content" id="step4">
                 <h4 class="mb-4">Konfirmasi Pendaftaran</h4>
                 <p class="text-muted mb-4">Pastikan data yang Anda masukkan sudah benar.</p>
-                
+
                 <div class="confirmation-summary">
                   <!-- Urutan sesuai alur wizard: Program -> Data Diri -> Jadwal -->
                   <div class="summary-item" style="background: #f0f7ff; border-radius: 5px; padding: 10px;">
@@ -1762,10 +1879,10 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
-      
+
       const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
       const title = type === 'success' ? 'Berhasil!' : 'Error!';
-      
+
       toast.innerHTML = `
         <div class="toast-icon"><i class="fa ${icon}"></i></div>
         <div class="toast-content">
@@ -1774,12 +1891,12 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
         </div>
         <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
       `;
-      
+
       container.appendChild(toast);
-      
+
       // Trigger animation
       setTimeout(() => toast.classList.add('show'), 10);
-      
+
       // Auto remove
       setTimeout(() => {
         toast.classList.remove('show');
@@ -1863,12 +1980,12 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
         const hariPertama = document.getElementById('hariPertama').value;
         const hariKedua = document.getElementById('hariKedua').value;
         const jam = document.getElementById('jamBelajar').value;
-        
+
         if (!hariPertama || !hariKedua || !jam) {
           showToast('Silakan lengkapi pemilihan hari dan jam terlebih dahulu', 'error');
           return false;
         }
-        
+
         if (hariPertama === hariKedua) {
           showToast('Hari pertama dan kedua tidak boleh sama', 'error');
           return false;
@@ -1894,19 +2011,22 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       const hariPertama = document.getElementById('hariPertama').value;
       const hariKedua = document.getElementById('hariKedua').value;
       const jam = document.getElementById('jamBelajar').value;
-      
+
       const previewDiv = document.getElementById('jadwalPreview');
       const previewText = document.getElementById('jadwalText');
       const hiddenInput = document.getElementById('selectedJadwal');
-      
+      const hiddenHari = document.getElementById('hariHidden');
+
       if (hariPertama && hariKedua && jam) {
         const jadwalStr = `${hariPertama} & ${hariKedua}, Pukul ${jam.replace('-', ' - ')}`;
         previewText.textContent = jadwalStr;
         hiddenInput.value = jadwalStr;
+        hiddenHari.value = `${hariPertama} & ${hariKedua}`;
         previewDiv.style.display = 'block';
       } else {
         previewDiv.style.display = 'none';
         hiddenInput.value = '';
+        hiddenHari.value = '';
       }
     }
 
@@ -1923,7 +2043,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
         'mapel-privat': 'Mapel - Privat'
       };
       document.getElementById('summaryProgram').textContent = programMap[document.getElementById('selectedProgram').value] || '-';
-      
+
       // Data Diri
       document.getElementById('summaryNama').textContent = document.querySelector('input[name="nama_lengkap"]').value || '-';
       document.getElementById('summaryAlamat').textContent = document.querySelector('textarea[name="alamat_rumah"]').value || '-';
@@ -1933,40 +2053,14 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       document.getElementById('summaryKelas').textContent = document.querySelector('input[name="kelas"]').value || '-';
       document.getElementById('summaryOrtu').textContent = document.querySelector('input[name="nama_orangtua"]').value || '-';
       document.getElementById('summaryWaOrtu').textContent = document.querySelector('input[name="wa_orangtua"]').value || '-';
-      
+
       // Jadwal
       document.getElementById('summaryJadwal').textContent = document.getElementById('selectedJadwal').value || '-';
     }
 
     // Form submission
     document.getElementById('registrationForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Simulate form submission (will be replaced with actual AJAX when backend ready)
-      const formData = new FormData(this);
-      
-      // Show loading state
-      const submitBtn = document.getElementById('btnSubmit');
-      submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Memproses...';
-      submitBtn.disabled = true;
-      
-      // Simulate API call
-      setTimeout(() => {
-        showToast('Pendaftaran berhasil ditambahkan', 'success');
-        submitBtn.innerHTML = '<i class="fa fa-check"></i> Daftar Sekarang';
-        submitBtn.disabled = false;
-        
-        // Reset form after success
-        setTimeout(() => {
-          this.reset();
-          currentStep = 1;
-          document.querySelectorAll('.program-card').forEach(card => {
-            card.classList.remove('selected');
-          });
-          document.getElementById('jadwalPreview').style.display = 'none';
-          updateWizard();
-        }, 2000);
-      }, 1500);
+      // Allow natural form POST to /pendaftaran/umum
     });
 
     // Remove invalid class on input/select
@@ -1985,8 +2079,10 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       const program = urlParams.get('program');
       if (program) {
         // Scroll to registration form
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        
+        document.getElementById('contact').scrollIntoView({
+          behavior: 'smooth'
+        });
+
         // Select the program after a short delay
         setTimeout(() => {
           const programCard = document.querySelector(`[data-program="${program}"]`);
@@ -2007,13 +2103,14 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
 
     // Show success/error messages from session
     <?php if (session()->getFlashdata('success')): ?>
-    showToast('<?= session()->getFlashdata('success') ?>', 'success');
+      showToast('<?= session()->getFlashdata('success') ?>', 'success');
     <?php endif; ?>
-    
+
     <?php if (session()->getFlashdata('error')): ?>
-    showToast('<?= session()->getFlashdata('error') ?>', 'error');
+      showToast('<?= session()->getFlashdata('error') ?>', 'error');
     <?php endif; ?>
   </script>
 
-  </body>
+</body>
+
 </html>

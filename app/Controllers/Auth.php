@@ -40,7 +40,12 @@ class Auth extends BaseController
         return redirect()->to('/login');
     }
 
-    public function register()
+    public function register(): string
+    {
+        return view('auth/register');
+    }
+
+    public function prosesRegister()
     {
         $session = session();
         $adminModel = new AdminModel();

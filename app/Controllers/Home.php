@@ -83,9 +83,20 @@ class Home extends BaseController
             }
         }
 
+        $jam = $this->request->getPost('jam');
+        $hari = $this->request->getPost('hari');
+        if (empty($hari)) {
+            $hariPertama = $this->request->getPost('hari_pertama');
+            $hariKedua = $this->request->getPost('hari_kedua');
+            if ($hariPertama && $hariKedua) {
+                $hari = "$hariPertama & $hariKedua";
+            }
+        }
+        if ($jam && strpos($jam, '-') !== false) {
+            $jam = trim(explode('-', $jam)[0]);
+        }
+
         $data = [
-            'username'       => 'WA-' . $noWa,
-            'password'       => password_hash('pendaftar-' . $noWa, PASSWORD_DEFAULT),
             'nama_lengkap'   => $this->request->getPost('nama_lengkap'),
             'alamat_rumah'  => $this->request->getPost('alamat_rumah'),
             'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
@@ -95,6 +106,8 @@ class Home extends BaseController
             'nama_orangtua' => $this->request->getPost('nama_orangtua'),
             'wa_orangtua'   => $this->request->getPost('wa_orangtua'),
             'id_program'    => $idProgram,
+            'hari'          => $hari,
+            'jam'           => $jam,
         ];
 
         try {

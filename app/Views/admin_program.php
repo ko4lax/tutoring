@@ -9,7 +9,7 @@
   <title>Data Program</title>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
@@ -44,6 +44,13 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('admin/jadwal') ?>">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Jadwal Les</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link" href="<?= site_url('admin/pengajar') ?>">
           <i class="fas fa-chalkboard-teacher"></i>
           <span>Data Pengajar</span>
@@ -53,7 +60,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="<?= site_url('admin/program') ?>">
           <i class="fas fa-book"></i>
-          <span>Data Program Bimbel</span>
+          <span>Data Program</span>
         </a>
       </li>
 
@@ -93,7 +100,13 @@
             </div>
           <?php endif; ?>
 
-          <?php $isEdit = isset($editProgram); ?>
+          <?php 
+            $editProgram = $editProgram ?? [];
+            $isEdit = !empty($editProgram); 
+            $programs = $programs ?? [];
+            $pengajar = $pengajar ?? [];
+            $pendaftar = $pendaftar ?? [];
+          ?>
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">
@@ -101,7 +114,7 @@
               </h6>
             </div>
             <div class="card-body">
-              <form action="<?= $isEdit ? site_url('admin/program/update/' . $editProgram['id_program']) : site_url('admin/program/simpan') ?>" method="POST">
+              <form action="<?= $isEdit ? site_url('admin/program/update/' . ($editProgram['id_program'] ?? '')) : site_url('admin/program/simpan') ?>" method="POST">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label>Nama Program</label>
@@ -126,11 +139,13 @@
                     <input type="time" name="waktu" class="form-control" placeholder="Contoh: 16:00" required value="<?= $isEdit ? esc($editProgram['waktu']) : '' ?>">
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                  <?= $isEdit ? 'Simpan Perubahan' : 'Tambah Program' ?>
+                <button type="submit" class="btn btn-primary mt-3">
+                  <i class="fas fa-save mr-2"></i><?= $isEdit ? 'Simpan Perubahan' : 'Tambah Program' ?>
                 </button>
                 <?php if ($isEdit) : ?>
-                  <a href="<?= site_url('admin/program') ?>" class="btn btn-secondary">Batal</a>
+                  <a href="<?= site_url('admin/program') ?>" class="btn btn-secondary mt-3">
+                    <i class="fas fa-times mr-2"></i>Batal
+                  </a>
                 <?php endif; ?>
               </form>
             </div>
@@ -177,10 +192,6 @@
                           </td>
                         </tr>
                       <?php endforeach; ?>
-                    <?php else : ?>
-                      <tr>
-                        <td colspan="7" class="text-center">Belum ada data program.</td>
-                      </tr>
                     <?php endif; ?>
                   </tbody>
                 </table>
@@ -256,7 +267,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Ac 2025 Bimbel Jadi Cerdas</span>
+                    <span>&copy; 2025 Bimbel Jadi Cerdas</span>
           </div>
         </div>
       </footer>

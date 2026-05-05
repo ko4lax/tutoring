@@ -9,8 +9,6 @@ class PendaftarModel extends Model
     protected $table = 'pengguna';
     protected $primaryKey = 'id_pengguna';
     protected $allowedFields = [
-        'username',
-        'password',
         'nama_lengkap',
         'no_wa',
         'id_program',
@@ -19,7 +17,9 @@ class PendaftarModel extends Model
         'kelas',
         'nama_orangtua',
         'wa_orangtua',
-        'alamat_rumah'
+        'alamat_rumah',
+        'hari',
+        'jam'
     ];
     protected $useTimestamps = false;
 }

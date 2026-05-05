@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
@@ -9,11 +9,11 @@
   <title>Dashboard Admin Bimbel Jadi Cerdas</title>
 
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <!-- SB Admin 2 CSS -->
-  <link rel="stylesheet" href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css">
+  <link href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -21,11 +21,10 @@
   <div id="wrapper">
 
     <!-- SIDEBAR -->
-    <!-- SIDEBAR -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- BRAND -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= site_url('admin') ?>">
         <div class="sidebar-brand-icon">
           <i class="fas fa-school"></i>
         </div>
@@ -52,6 +51,14 @@
         </a>
       </li>
 
+      <!-- JADWAL LES -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('admin/jadwal') ?>">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Jadwal Les</span>
+        </a>
+      </li>
+
       <!-- DATA PENGAJAR -->
       <li class="nav-item">
         <a class="nav-link" href="<?= site_url('admin/pengajar') ?>">
@@ -71,8 +78,6 @@
       <hr class="sidebar-divider d-none d-md-block">
 
     </ul>
-    <!-- END SIDEBAR -->
-
     <!-- END SIDEBAR -->
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -113,7 +118,7 @@
           <div class="row">
 
             <!-- JUMLAH SISWA -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -121,7 +126,7 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Jumlah Siswa
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pendaftar) ?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pendaftar ?? []) ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
@@ -132,7 +137,7 @@
             </div>
 
             <!-- ASISTEN -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -140,10 +145,29 @@
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Asisten Pengajar
                       </div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pengajar) ?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($pengajar ?? []) ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TOTAL PROGRAM -->
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                        Total Program
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= count($programs ?? []) ?></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-book fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -162,7 +186,7 @@
                   </h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
+                  <div class="chart-area" style="height: 320px;">
                     <canvas id="grafikTahunan"></canvas>
                   </div>
                 </div>
@@ -200,31 +224,32 @@
 
   <script>
     var ctx = document.getElementById("grafikTahunan");
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['2022', '2023', '2024', '2025', '2026'],
-        datasets: [{
-          label: 'Jumlah Siswa',
-          data: [45, 65, 85, 100, 120],
-          backgroundColor: 'rgba(78,115,223,0.15)',
-          borderColor: 'rgba(78,115,223,1)',
-          borderWidth: 3,
-          pointRadius: 5,
-          lineTension: 0.4
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            ticks: {
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['2022', '2023', '2024', '2025', '2026'],
+          datasets: [{
+            label: 'Jumlah Siswa',
+            data: [45, 65, 85, 100, 120],
+            backgroundColor: 'rgba(78,115,223,0.15)',
+            borderColor: 'rgba(78,115,223,1)',
+            borderWidth: 3,
+            pointRadius: 5,
+            lineTension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
               beginAtZero: true
             }
-          }]
+          }
         }
-      }
-    });
+      });
+    }
   </script>
 
 </body>

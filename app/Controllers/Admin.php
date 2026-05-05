@@ -7,15 +7,34 @@ use App\Models\ProgramModel;
 
 class Admin extends BaseController {
     public function index() {
-        $data['pendaftar'] = (new PendaftarModel())->orderBy('id_pengguna','DESC')->findAll();
-        $data['pengajar'] = (new PengajarModel())->orderBy('id_pengajar','DESC')->findAll();
+        $data['pendaftar'] = (new PendaftarModel())->findAll();
+        $data['pengajar'] = (new PengajarModel())->findAll();
+        $data['programs'] = (new ProgramModel())->findAll();
         return view('admin', $data);
     }
 
     public function pendaftar() {
         $model = new PendaftarModel();
+        $programModel = new ProgramModel();
+        $data['programs'] = $programModel->orderBy('nama_program', 'ASC')->findAll();
+
+        $filterProgram = $this->request->getGet('program');
+        if ($filterProgram && $filterProgram !== '') {
+            $model->where('id_program', $filterProgram);
+            $data['filterProgram'] = $filterProgram;
+        }
+
         $data['pendaftar'] = $model->orderBy('id_pengguna','DESC')->findAll();
-        $data['programs'] = (new ProgramModel())->orderBy('nama_program', 'ASC')->findAll();
+        $data['semuaPendaftar'] = (new PendaftarModel())->findAll();
+
+        $programCounts = [];
+        foreach ($data['semuaPendaftar'] as $p) {
+            $pid = $p['id_program'];
+            if ($pid) {
+                $programCounts[$pid] = ($programCounts[$pid] ?? 0) + 1;
+            }
+        }
+        $data['programCounts'] = $programCounts;
 
         $editId = $this->request->getGet('edit');
         if ($editId) {
@@ -23,6 +42,64 @@ class Admin extends BaseController {
         }
 
         return view('admin_pendaftar', $data);
+    }
+
+    public function jadwal() {
+        $pendaftarModel = new PendaftarModel();
+        $programModel = new ProgramModel();
+        $pengajarModel = new PengajarModel();
+
+        $pendaftar = $pendaftarModel->orderBy('hari', 'ASC')->orderBy('jam', 'ASC')->findAll();
+        $programs = $programModel->orderBy('nama_program', 'ASC')->findAll();
+        $pengajar = $pengajarModel->orderBy('nama_pengajar', 'ASC')->findAll();
+
+        $programMap = [];
+        foreach ($programs as $p) {
+            $programMap[$p['id_program']] = $p;
+        }
+
+        $jadwal = [];
+        $urutanHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+
+        foreach ($pendaftar as $row) {
+            $hari = $row['hari'] ?: 'Belum ditentukan';
+            $jam = $row['jam'] ?: 'Belum ditentukan';
+            $pid = $row['id_program'];
+
+            if (!isset($jadwal[$hari])) {
+                $jadwal[$hari] = [];
+            }
+            if (!isset($jadwal[$hari][$jam])) {
+                $jadwal[$hari][$jam] = [];
+            }
+            $jadwal[$hari][$jam][] = [
+                'pendaftar' => $row,
+                'program' => $programMap[$pid] ?? null,
+            ];
+        }
+
+        foreach ($jadwal as &$slots) {
+            ksort($slots);
+        }
+        unset($slots);
+
+        $orderedJadwal = [];
+        foreach ($urutanHari as $hari) {
+            if (isset($jadwal[$hari])) {
+                $orderedJadwal[$hari] = $jadwal[$hari];
+            }
+        }
+        foreach ($jadwal as $hari => $slots) {
+            if (!isset($orderedJadwal[$hari])) {
+                $orderedJadwal[$hari] = $slots;
+            }
+        }
+
+        $data['jadwal'] = $orderedJadwal;
+        $data['pengajar'] = $pengajar;
+        $data['programs'] = $programs;
+
+        return view('admin_jadwal', $data);
     }
 
     public function pengajar() {
@@ -282,7 +359,6 @@ class Admin extends BaseController {
         if ($programId === null || $programId === '') {
             return redirect()->back()->with('error', 'Program wajib dipilih.');
         }
-        // Urutan sesuai wizard: Program -> Data Diri (Nama, Alamat, Tgl Lahir, No WA, Sekolah, Kelas, Nama Ortu, WA Ortu)
         $model->insert([
             'id_program' => $programId,
             'nama_lengkap' => $nama,
@@ -293,6 +369,8 @@ class Admin extends BaseController {
             'kelas' => $this->request->getPost('kelas'),
             'nama_orangtua' => $this->request->getPost('nama_orangtua'),
             'wa_orangtua' => $this->request->getPost('wa_orangtua'),
+            'hari' => $this->request->getPost('hari'),
+            'jam' => $this->request->getPost('jam'),
         ]);
         $source = $this->request->getPost('source');
         if ($source === 'admin') {
@@ -304,7 +382,6 @@ class Admin extends BaseController {
 
     public function updatePendaftar($id = null) {
         $model = new PendaftarModel();
-        // Urutan sesuai wizard: Program -> Data Diri (Nama, Alamat, Tgl Lahir, No WA, Sekolah, Kelas, Nama Ortu, WA Ortu)
         $model->update($id, [
             'id_program' => $this->request->getPost('id_program'),
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
@@ -315,6 +392,8 @@ class Admin extends BaseController {
             'kelas' => $this->request->getPost('kelas'),
             'nama_orangtua' => $this->request->getPost('nama_orangtua'),
             'wa_orangtua' => $this->request->getPost('wa_orangtua'),
+            'hari' => $this->request->getPost('hari'),
+            'jam' => $this->request->getPost('jam'),
         ]);
         return redirect()->to('/admin/pendaftar')->with('success','Data pendaftar berhasil diperbarui');
     }

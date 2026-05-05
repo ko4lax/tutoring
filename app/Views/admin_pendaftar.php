@@ -9,7 +9,7 @@
     <title>Data Pendaftar</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
@@ -40,6 +40,13 @@
             <a class="nav-link" href="<?= site_url('admin/pendaftar') ?>">
                 <i class="fas fa-users"></i>
                 <span>Data Pendaftar</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('admin/jadwal') ?>">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwal Les</span>
             </a>
         </li>
 
@@ -98,7 +105,13 @@
                     </div>
                 <?php endif; ?>
 
-                <?php $isEdit = isset($editPendaftar); ?>
+                <?php 
+                    $editPendaftar = $editPendaftar ?? [];
+                    $isEdit = !empty($editPendaftar); 
+                    $programs = $programs ?? [];
+                    $hariList = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+                    $jamList = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
+                ?>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -106,12 +119,11 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form action="<?= $isEdit ? site_url('admin/pendaftar/update/' . $editPendaftar['id_pengguna']) : site_url('admin/pendaftar/simpan') ?>" method="POST">
+                        <form action="<?= $isEdit ? site_url('admin/pendaftar/update/' . ($editPendaftar['id_pengguna'] ?? '')) : site_url('admin/pendaftar/simpan') ?>" method="POST">
                             <?php if (!$isEdit) : ?>
                                 <input type="hidden" name="source" value="admin">
                             <?php endif; ?>
                             
-                            <!-- Step 1: Program -->
                             <h5 class="text-primary mb-3"><i class="fas fa-book mr-2"></i>Program Bimbel</h5>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -133,11 +145,28 @@
                                         </div>
                                     <?php endif; ?>
                                 </div>
+                                <div class="form-group col-md-3">
+                                    <label>Hari</label>
+                                    <select name="hari" class="form-control">
+                                        <option value="">-- Pilih Hari --</option>
+                                        <?php foreach ($hariList as $h) : ?>
+                                            <option value="<?= $h ?>" <?= $isEdit && ($editPendaftar['hari'] ?? '') === $h ? 'selected' : '' ?>><?= $h ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Jam</label>
+                                    <select name="jam" class="form-control">
+                                        <option value="">-- Pilih Jam --</option>
+                                        <?php foreach ($jamList as $j) : ?>
+                                            <option value="<?= $j ?>" <?= $isEdit && ($editPendaftar['jam'] ?? '') === $j ? 'selected' : '' ?>><?= $j ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
                             </div>
                             
                             <hr class="my-4">
                             
-                            <!-- Step 2: Data Diri -->
                             <h5 class="text-primary mb-3"><i class="fas fa-user mr-2"></i>Data Diri</h5>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
@@ -193,10 +222,50 @@
                 </div>
 
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
                         <h6 class="m-0 font-weight-bold text-primary">Tabel Pendaftar</h6>
+                        <a href="<?= site_url('admin/jadwal') ?>" class="btn btn-sm btn-success">
+                            <i class="fas fa-calendar-alt mr-1"></i>Lihat Jadwal
+                        </a>
                     </div>
                     <div class="card-body">
+                        <?php $programCounts = $programCounts ?? []; ?>
+                        <?php $filterProgram = $filterProgram ?? ''; ?>
+                        <div class="mb-3">
+                            <form method="GET" action="<?= site_url('admin/pendaftar') ?>" class="form-inline">
+                                <label class="mr-2 font-weight-bold"><i class="fas fa-filter mr-1"></i>Filter Program:</label>
+                                <select name="program" class="form-control form-control-sm mr-2" style="width:250px;" onchange="this.form.submit()">
+                                    <option value="">-- Semua Program --</option>
+                                    <?php foreach ($programs as $prog) : ?>
+                                        <?php $count = $programCounts[$prog['id_program']] ?? 0; ?>
+                                        <option value="<?= $prog['id_program'] ?>" <?= (string)$filterProgram === (string)$prog['id_program'] ? 'selected' : '' ?>>
+                                            <?= esc($prog['nama_program']) ?> (<?= $count ?> pendaftar)
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php if ($filterProgram !== '') : ?>
+                                    <a href="<?= site_url('admin/pendaftar') ?>" class="btn btn-sm btn-outline-secondary">Hapus Filter</a>
+                                <?php endif; ?>
+                            </form>
+                        </div>
+
+                        <?php if ($filterProgram !== '') : ?>
+                            <?php 
+                                $totalFiltered = count($pendaftar ?? []);
+                                $selectedProgramName = '';
+                                foreach ($programs as $prg) {
+                                    if ((string)$prg['id_program'] === (string)$filterProgram) {
+                                        $selectedProgramName = $prg['nama_program'];
+                                        break;
+                                    }
+                                }
+                            ?>
+                            <div class="alert alert-info py-2">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Program <strong><?= esc($selectedProgramName) ?></strong>: <strong><?= $totalFiltered ?></strong> pendaftar
+                            </div>
+                        <?php endif; ?>
+
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -206,6 +275,8 @@
                                         <th>Nama</th>
                                         <th>No WA</th>
                                         <th>Kelas</th>
+                                        <th>Hari</th>
+                                        <th>Jam</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -228,6 +299,8 @@
                                                 <td><?= esc($row['nama_lengkap']) ?></td>
                                                 <td><?= esc($row['no_wa']) ?></td>
                                                 <td><?= esc($row['kelas']) ?></td>
+                                                <td><?= esc($row['hari'] ?? '-') ?></td>
+                                                <td><?= esc($row['jam'] ?? '-') ?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#detailPendaftar<?= $row['id_pengguna'] ?>">
                                                         Detail
@@ -241,10 +314,6 @@
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <tr>
-                                            <td colspan="6" class="text-center">Belum ada data pendaftar.</td>
-                                        </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -266,7 +335,17 @@
                                     </div>
                                     <div class="modal-body">
                                         <h6 class="text-primary mb-3"><i class="fas fa-book mr-2"></i>Program</h6>
-                                        <p><strong>Program:</strong> <?= esc($programMap[$row['id_program']] ?? ($row['id_program'] ? $row['id_program'] : 'Belum ditentukan')) ?></p>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p><strong>Program:</strong> <?= esc($programMap[$row['id_program']] ?? ($row['id_program'] ? $row['id_program'] : 'Belum ditentukan')) ?></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p><strong>Hari:</strong> <?= esc($row['hari'] ?? '-') ?></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p><strong>Jam:</strong> <?= esc($row['jam'] ?? '-') ?></p>
+                                            </div>
+                                        </div>
                                         
                                         <hr class="my-3">
                                         <h6 class="text-primary mb-3"><i class="fas fa-user mr-2"></i>Data Diri</h6>
@@ -290,7 +369,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Ac 2025 Bimbel Jadi Cerdas</span>
+                    <span>&copy; 2025 Bimbel Jadi Cerdas</span>
                 </div>
             </div>
         </footer>
@@ -306,9 +385,9 @@
 <script>
 $(function () {
     $('#dataTable').DataTable({
-        "order": [[0, 'asc']], // Default sort by ID (column index 0)
+        "order": [[0, 'asc']],
         "columnDefs": [
-            { "orderable": false, "targets": [5] } // Aksi column not sortable
+            { "orderable": false, "targets": [7] }
         ],
         "language": {
             "emptyTable": "Tidak ada data pendaftar",

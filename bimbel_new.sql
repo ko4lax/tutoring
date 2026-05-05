@@ -64,8 +64,6 @@ CREATE TABLE `pengajar` (
 
 CREATE TABLE `pengguna` (
   `id_pengguna` int(4) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
   `nama_lengkap` varchar(100) NOT NULL,
   `no_wa` varchar(20) NOT NULL,
   `id_program` int(10) DEFAULT NULL,
@@ -74,7 +72,9 @@ CREATE TABLE `pengguna` (
   `kelas` varchar(50) NOT NULL,
   `nama_orangtua` varchar(100) NOT NULL,
   `wa_orangtua` varchar(20) NOT NULL,
-  `alamat_rumah` varchar(100) NOT NULL
+  `alamat_rumah` varchar(100) NOT NULL,
+  `hari` varchar(20) DEFAULT NULL,
+  `jam` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

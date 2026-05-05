@@ -9,7 +9,7 @@
     <title>Data Pengajar</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://startbootstrap.github.io/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
@@ -40,6 +40,13 @@
             <a class="nav-link" href="<?= site_url('admin/pendaftar') ?>">
                 <i class="fas fa-users"></i>
                 <span>Data Pendaftar</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('admin/jadwal') ?>">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwal Les</span>
             </a>
         </li>
 
@@ -93,7 +100,11 @@
                     </div>
                 <?php endif; ?>
 
-                <?php $isEdit = isset($editPengajar); ?>
+                <?php 
+                    $editPengajar = $editPengajar ?? [];
+                    $isEdit = !empty($editPengajar); 
+                    $programs = $programs ?? [];
+                ?>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
@@ -101,7 +112,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <form action="<?= $isEdit ? site_url('admin/updatePengajar/' . $editPengajar['id_pengajar']) : site_url('admin/simpanPengajar') ?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?= $isEdit ? site_url('admin/updatePengajar/' . ($editPengajar['id_pengajar'] ?? '')) : site_url('admin/simpanPengajar') ?>" method="POST" enctype="multipart/form-data">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Nama <span class="text-danger">*</span></label>
@@ -203,10 +214,6 @@
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <tr>
-                                            <td colspan="7" class="text-center">Belum ada data pengajar.</td>
-                                        </tr>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -252,7 +259,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Ac 2025 Bimbel Jadi Cerdas</span>
+                    <span>&copy; 2025 Bimbel Jadi Cerdas</span>
                 </div>
             </div>
         </footer>

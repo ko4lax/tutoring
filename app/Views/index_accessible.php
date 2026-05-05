@@ -2057,6 +2057,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
                   </div>
                   
                   <input type="hidden" name="jadwal" id="selectedJadwal" required aria-required="true">
+                  <input type="hidden" name="hari" id="hariHidden">
                   <div id="jadwal-error" class="alert alert-danger" role="alert" style="display: none;">
                     Hari pertama dan kedua tidak boleh sama
                   </div>
@@ -2433,11 +2434,13 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       const previewDiv = document.getElementById('jadwalPreview');
       const previewText = document.getElementById('jadwalText');
       const hiddenInput = document.getElementById('selectedJadwal');
+      const hiddenHari = document.getElementById('hariHidden');
       
       if (hariPertama && hariKedua && jam) {
         const jadwalStr = `${hariPertama} & ${hariKedua}, Pukul ${jam.replace('-', ' - ')}`;
         previewText.textContent = jadwalStr;
         hiddenInput.value = jadwalStr;
+        hiddenHari.value = `${hariPertama} & ${hariKedua}`;
         previewDiv.style.display = 'block';
         
         // Check if same day
@@ -2449,6 +2452,7 @@ Kami percaya bahwa setiap anak memiliki potensi besar. Tugas kami adalah membimb
       } else {
         previewDiv.style.display = 'none';
         hiddenInput.value = '';
+        hiddenHari.value = '';
       }
     }
 

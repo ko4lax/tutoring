@@ -18,12 +18,13 @@ $routes->post('/login', 'Auth::prosesLogin');
 $routes->get('/logout', 'Auth::logout');
 
 // Admin self-registration (protected by secret env var)
-$routes->get('/register', 'Auth::login'); // placeholder — actual register page not built yet
-$routes->post('/register', 'Auth::register');
+$routes->get('/register', 'Auth::register');
+$routes->post('/register', 'Auth::prosesRegister');
 
 // Admin dashboard and actions
 $routes->get('/admin', 'Admin::index');
 $routes->get('/admin/pendaftar', 'Admin::pendaftar');
+$routes->get('/admin/jadwal', 'Admin::jadwal');
 $routes->get('/admin/pengajar', 'Admin::pengajar');
 $routes->get('/admin/program', 'Admin::program');
 $routes->post('/admin/simpanPengajar', 'Admin::simpanPengajar');
